@@ -9,4 +9,8 @@ class signupform(flaskform):
 
     last_name = stringfield('last_name',validators= [data_required()])
 
-    email = stringfield
+    email = stringfield('Email', validators=[data_required(), email()])
+
+    password = passwordfield('Password', validators=[length(min=6)])
+
+    submit = submitfield('Update Profile')

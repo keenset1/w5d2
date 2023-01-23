@@ -1,6 +1,6 @@
 from module import app, pokemon
 from route import requests,user,attack
-from flask import render_template
+from flask import render_template,sessions
 
 @app.route('/batlle/<string:username>', methods=['get','post'])
 
@@ -12,7 +12,7 @@ def batlle(username):
         if not defender:
             return 'user not found'
             
-attacker_pokemon = pokemon.query.filter_by(owner=session['username']).all() 
+attacker_pokemon = pokemon.query.filter_by(owner=sessions['username']).all() 
 defend_pokemon = pokemon.query.filter_by(owner = 'username').all()
 
 def pokemon():
@@ -49,9 +49,8 @@ for defend_pokemon in defend_pokemon_types:
                  break
         if winner == attacker_pokemon:
              return  f"{attacker_pokemon.name} win againts {defender_pokemon.name}"
-        else: 
-         f"{attacker_pokemon.name} win againts {defender_pokemon.name}"
-        
+        else:
+            f"{attacker_pokemon.name} win againts {defender_pokemon.name}"
 else:
     user  = user.query.all()
     return render_template ('battle.html',user = user)
